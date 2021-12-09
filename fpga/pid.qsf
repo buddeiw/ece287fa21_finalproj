@@ -53,4 +53,74 @@ set_global_assignment -name VERILOG_FILE lcd.v
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_location_assignment PIN_M2 -to disp_rs -comment "LCD COMMAND SELECT"
+set_location_assignment PIN_M1 -to disp_rw -comment "LCD R/W SELECT"
+set_location_assignment PIN_L4 -to disp_en -comment "LCD ENABLE"
+set_location_assignment PIN_L3 -to disp_data[0] -comment DATA_0
+set_location_assignment PIN_L1 -to disp_data[1] -comment DATA_1
+set_location_assignment PIN_L2 -to disp_data[2] -comment DATA_2
+set_location_assignment PIN_K7 -to disp_data[3] -comment DATA_3
+set_location_assignment PIN_K1 -to disp_data[4] -comment DATA_4
+set_location_assignment PIN_K2 -to disp_data[5] -comment DATA_5
+set_location_assignment PIN_M3 -to disp_data[6] -comment DATA_6
+set_location_assignment PIN_M5 -to disp_data[7] -comment DATA_7
+set_location_assignment PIN_L5 -to display_on -comment "LCD ON"
+set_global_assignment -name VERILOG_FILE decimal_val.v
+set_location_assignment PIN_AC27 -to kp_active -comment SW2
+set_location_assignment PIN_AC28 -to ki_active -comment SW1
+set_location_assignment PIN_AB28 -to kd_active -comment SW0
+set_global_assignment -name VERILOG_FILE seven_segment.v
+set_location_assignment PIN_G18 -to seg7_ones[6]
+set_location_assignment PIN_F22 -to seg7_ones[5]
+set_location_assignment PIN_E17 -to seg7_ones[4]
+set_location_assignment PIN_L26 -to seg7_ones[3]
+set_location_assignment PIN_L25 -to seg7_ones[2]
+set_location_assignment PIN_J22 -to seg7_ones[1]
+set_location_assignment PIN_H22 -to seg7_ones[0]
+set_location_assignment PIN_M24 -to seg7_tens[6]
+set_location_assignment PIN_Y22 -to seg7_tens[5]
+set_location_assignment PIN_W21 -to seg7_tens[4]
+set_location_assignment PIN_W22 -to seg7_tens[3]
+set_location_assignment PIN_W25 -to seg7_tens[2]
+set_location_assignment PIN_U23 -to seg7_tens[1]
+set_location_assignment PIN_U24 -to seg7_tens[0]
+set_location_assignment PIN_AA25 -to seg7_hundreds[6]
+set_location_assignment PIN_AA26 -to seg7_hundreds[5]
+set_location_assignment PIN_Y25 -to seg7_hundreds[4]
+set_location_assignment PIN_W26 -to seg7_hundreds[3]
+set_location_assignment PIN_Y26 -to seg7_hundreds[2]
+set_location_assignment PIN_W27 -to seg7_hundreds[1]
+set_location_assignment PIN_W28 -to seg7_hundreds[0]
+set_location_assignment PIN_Y2 -to clk -comment SW17
+set_location_assignment PIN_Y24 -to res
+set_global_assignment -name VERILOG_FILE seg7_act_val.v
+set_location_assignment PIN_AD18 -to seg7_k[6]
+set_location_assignment PIN_AC18 -to seg7_k[5]
+set_location_assignment PIN_AB18 -to seg7_k[4]
+set_location_assignment PIN_AH19 -to seg7_k[3]
+set_location_assignment PIN_AG19 -to seg7_k[2]
+set_location_assignment PIN_AF18 -to seg7_k[1]
+set_location_assignment PIN_AH18 -to seg7_k[0]
+set_location_assignment PIN_AB19 -to seg7_eq[6]
+set_location_assignment PIN_AA19 -to seg7_eq[5]
+set_location_assignment PIN_AG21 -to seg7_eq[4]
+set_location_assignment PIN_AH21 -to seg7_eq[3]
+set_location_assignment PIN_AE19 -to seg7_eq[2]
+set_location_assignment PIN_AF19 -to seg7_eq[1]
+set_location_assignment PIN_AE18 -to seg7_eq[0]
+set_global_assignment -name VERILOG_FILE output_pwm_gen.v
+set_global_assignment -name VERILOG_FILE velocity_decimal_val.v
+set_location_assignment PIN_R24 -to inc_up -comment KEY3
+set_location_assignment PIN_N21 -to inc_dn -comment KEY2
+set_location_assignment PIN_AD27 -to c_active
+set_location_assignment PIN_V21 -to seg7_thousands[6]
+set_location_assignment PIN_U21 -to seg7_thousands[5]
+set_location_assignment PIN_AB20 -to seg7_thousands[4]
+set_location_assignment PIN_AA21 -to seg7_thousands[3]
+set_location_assignment PIN_AD24 -to seg7_thousands[2]
+set_location_assignment PIN_AF23 -to seg7_thousands[1]
+set_location_assignment PIN_Y19 -to seg7_thousands[0]
+set_location_assignment PIN_J10 -to motor_rot_pulse
+set_global_assignment -name VERILOG_FILE motor_rpm_count.v
+set_location_assignment PIN_J14 -to velocity_command_pulse
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

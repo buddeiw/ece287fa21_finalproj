@@ -1,0 +1,15 @@
+module decimal_val(
+	input [11:0]val,
+	output [3:0]dec_hundreds,
+	output [3:0]dec_tens,
+	output [3:0]dec_ones
+);
+
+always @(*)
+	begin
+		dec_hundreds = val / 16'd100;
+		dec_tens = (val / 16'd100) % 16'd10;
+		dec_ones = val % 16'd10;
+	end
+
+endmodule 

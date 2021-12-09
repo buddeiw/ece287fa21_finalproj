@@ -1,0 +1,57 @@
+module output_pwm_gen(
+	input clk,
+	input res,
+	input [3:0]rising_edge,
+	input [3:0]falling_edge,
+	output pwm_out
+);
+
+reg [3:0]base_count;
+reg [3:0]rise_count;
+reg [3:0]fall_count;
+
+reg waveform_value;
+
+always @(posedge clk or negedge res)
+	begin
+		if (res == 1'b0)
+			begin
+				base_count <= 4'b0000;
+				waveform_value <= 1'b1;
+			end
+		else if (waveform_value == 1'b1)
+			begin
+				if (base_count == rise_count - 1)
+					begin
+						base_count <= 4'b0000;
+						waveform_value <= 1'b0;
+					end
+				else
+					begin
+						base_count <= base_count + 1;
+					end
+			end
+		else if (waveform_value == 1'b0)
+			begin
+				if (base_count == fall_count - 1)
+					begin
+						base_count <= 4'b0000;
+						waveform_value <= 1'b1;
+					end
+				else
+					begin
+						base_count <= base_count + 1;
+					end
+			end
+	end
+	
+always @(rising_edge, falling_edge)
+	begin
+		rise_count <= rising_edge;
+		fall_count <= falling_edge;
+	end
+	
+assign pwm_out = waveform_value;
+
+endmodule
+				

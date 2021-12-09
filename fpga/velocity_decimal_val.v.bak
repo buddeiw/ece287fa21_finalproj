@@ -1,0 +1,224 @@
+module velocity_decimal_val(
+	input [15:0]val,
+	output reg [7:0]ascii_thousands,
+	output reg [7:0]ascii_hundreds,
+	output reg [7:0]ascii_tens,
+	output reg [7:0]ascii_ones
+);
+
+reg [3:0]dec_thousands;
+reg [3:0]dec_hundreds;
+reg [3:0]dec_tens;
+reg [3:0]dec_ones;
+
+initial
+	begin
+		ascii_thousands = 8'd48;
+		ascii_hundreds = 8'd48;
+		ascii_tens = 8'd48;
+		ascii_ones = 8'd48;
+	end
+
+always @(*)
+	begin
+		dec_thousands = val / 1000;
+		dec_hundreds = (val / 100) % 10;
+		dec_tens = (val / 10) % 10;
+		dec_ones = val % 10;
+
+		case (dec_thousands)
+	
+			4'd0:
+				begin
+					ascii_thousands = 8'd48;
+				end
+			4'd1:
+				begin
+					ascii_thousands = 8'd49;
+				end
+			4'd2:
+				begin
+					ascii_thousands = 8'd50;
+				end
+			4'd3:
+				begin
+					ascii_thousands = 8'd51;
+				end
+			4'd4:
+				begin
+					ascii_thousands = 8'd52;
+				end
+			4'd5:
+				begin
+					ascii_thousands = 8'd53;
+				end
+			4'd6:
+				begin
+					ascii_thousands = 8'd54;
+				end
+			4'd7:
+				begin
+					ascii_thousands = 8'd55;
+				end
+			4'd8:
+				begin
+					ascii_thousands = 8'd56;
+				end
+			4'd9:
+				begin
+					ascii_thousands = 8'd57;
+				end
+			default:
+				begin
+					ascii_thousands = 8'd3;
+				end
+				
+		endcase
+		
+
+		case (dec_hundreds)
+	
+			4'd0:
+				begin
+					ascii_hundreds = 8'd48;
+				end
+			4'd1:
+				begin
+					ascii_hundreds = 8'd49;
+				end
+			4'd2:
+				begin
+					ascii_hundreds = 8'd50;
+				end
+			4'd3:
+				begin
+					ascii_hundreds = 8'd51;
+				end
+			4'd4:
+				begin
+					ascii_hundreds = 8'd52;
+				end
+			4'd5:
+				begin
+					ascii_hundreds = 8'd53;
+				end
+			4'd6:
+				begin
+					ascii_hundreds = 8'd54;
+				end
+			4'd7:
+				begin
+					ascii_hundreds = 8'd55;
+				end
+			4'd8:
+				begin
+					ascii_hundreds = 8'd56;
+				end
+			4'd9:
+				begin
+					ascii_hundreds = 8'd57;
+				end
+			default:
+				begin
+					ascii_hundreds = 8'd3;
+				end
+
+		endcase
+	
+		case (dec_tens)
+	
+			4'd0:
+				begin
+					ascii_tens = 8'd48;
+				end
+			4'd1:
+				begin
+					ascii_tens = 8'd49;
+				end
+			4'd2:
+				begin
+					ascii_tens = 8'd50;
+				end
+			4'd3:
+				begin
+					ascii_tens = 8'd51;
+				end
+			4'd4:
+				begin
+					ascii_tens = 8'd52;
+				end
+			4'd5:
+				begin
+					ascii_tens = 8'd53;
+				end
+			4'd6:
+				begin
+					ascii_tens = 8'd54;
+				end
+			4'd7:
+				begin
+					ascii_tens = 8'd55;
+				end
+			4'd8:
+				begin
+					ascii_tens = 8'd56;
+				end
+			4'd9:
+				begin
+					ascii_tens = 8'd57;
+				end
+			default:
+				begin
+					ascii_tens = 8'd3;
+				end
+		endcase
+	
+		case (dec_ones)
+	
+			4'd0:
+				begin
+					ascii_ones = 8'd48;
+				end
+			4'd1:
+				begin
+					ascii_ones = 8'd49;
+				end
+			4'd2:
+				begin
+					ascii_ones = 8'd50;
+				end
+			4'd3:
+				begin
+					ascii_ones = 8'd51;
+				end
+			4'd4:
+				begin
+					ascii_ones = 8'd52;
+				end
+			4'd5:
+				begin
+					ascii_ones = 8'd53;
+				end
+			4'd6:
+				begin
+					ascii_ones = 8'd54;
+				end
+			4'd7:
+				begin
+					ascii_ones = 8'd55;
+				end
+			4'd8:
+				begin
+					ascii_ones = 8'd56;
+				end
+			4'd9:
+				begin
+					ascii_ones = 8'd57;
+				end
+			default:
+				begin
+					ascii_ones = 8'd3;
+				end
+			
+		endcase
+	end

@@ -1,0 +1,7 @@
+
+State Machine - |pid|lcd:lcd|S
+Name S.IDLE S.PUSH S.LOAD S.INIT 
+S.INIT 0 0 0 0 
+S.LOAD 0 0 1 1 
+S.PUSH 0 1 0 1 
+S.IDLE 1 0 0 1 
