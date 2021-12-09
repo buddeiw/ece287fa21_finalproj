@@ -3,14 +3,6 @@
 ## **Proportional Integral Derivative (PID) Control Implementation**
 Excecuted on Cyclone IV FPGA Hardware (_Altera DE2-115 Demonstrator_)
 
-
-**this is bold**
-*this is italic*
-**this is bold and _italic_**
-***all above***
-
-`this is code`
-
 ### **Project Synopsis :**
 PID control is a common industrial control algorithm used to stabilize system control and response time. This algorithm, often referred to as PID,
     constantly calculates an error value e(t) as the difference between a desired value, or setpoint, SP, and the real-time measured value, or process variable, PV. The algorithm then performs a correction for this error by calculation of proportional (real-time), integral (past response), and derivative (future response) terms for controller output.
@@ -21,9 +13,9 @@ Starting in 1911, the first controller similar to a PID was created by Elmer Spe
  As for the creation of this final project, we thought it would be a good idea to test the limits of a PID controller. Because of the FPGA’s real time value, the PID controller can update much quicker than a programmable logic controller (PLC) is able to. Therefore, Dr. Peter Jamieson suggested that formulating a PID controller module that runs much more efficiently than a PLC would be a good approach to our final project. In a real world setting, it is important to keep in mind that although a working machine is critical to obtain, one that contains systematic timing is very important as well.
 
 ### **Where To Find More Information On PID :**
-    For more information on proportional-integral-derivative control, you can reference Karl Johan Åström’s document, provided with the link below:
+_For more information on proportional-integral-derivative control, you can reference Karl Johan Åström’s document, provided with the link below:_
 
-    http://www.cds.caltech.edu/~murray/courses/cds101/fa02/caltech/astrom-ch6.pdf
+ http://www.cds.caltech.edu/~murray/courses/cds101/fa02/caltech/astrom-ch6.pdf
 
 ### **What We Did (***Description of the Project Outline***) :**
  In this repository, we added the proportional-integral-derivative control features with Verilog on the DE2-115 FPGA that can be extended to a servo motor drive output.
@@ -50,7 +42,7 @@ _* Here are some major improvements made throughout the process of this project:
 ### **Photo/Video Of Project :**
 _photos and video will be added later after demo_
 ### **Conclusion :**
-In conclusion, the PID project was a success. Although we were unable to test our PID module on the servo motor (unable to get access to a necessary logic converter PWM to voltage component before project deadline), we were able to test our PID controller through simulation on Dr. P. Jamieson’s request. As stated in the Background Information section of this READ_ME file, the PID is able to update much quicker on the FPGA, proving that there is significant improvement in acquiring a desired RPM.
+In conclusion, the PID project was a success. Although we were unable to test our PID module on the servo motor (unable to get access to a necessary logic converter PWM to voltage component before project deadline), we were able to test our PID controller through simulation on Dr. P. Jamieson’s request. As stated in the **Background Information** section of this README file, the PID is able to update much quicker on the FPGA, proving that there is significant improvement in acquiring a desired RPM.
 
 
 **_The completion time of our project was approximately 100 working hours, with a turn in date of December 11th, 2021._**
