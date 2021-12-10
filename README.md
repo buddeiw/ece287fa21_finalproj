@@ -1,46 +1,93 @@
-# ECE 287 A (Fall 2021) Final Project -- Isaac Budde & Alyssa Winn
+# ECE 287 A (Fall 2021) Final Project
 
-## **Proportional Integral Derivative (PID) Control Implementation**
-Excecuted on Cyclone IV FPGA Hardware (_Altera DE2-115 Demonstrator_)
+
+## **Proportional Integral Derivative (PID) Control Implementation on FPGA Architecture - Isaac Budde & Alyssa Winn**
+
+Excecuted on Intel/Altera Cyclone IV FPGA (_Terasic DE2-115 Demonstrator_)
 
 ### **Project Synopsis :**
-PID control is a common industrial control algorithm used to stabilize system control and response time. This algorithm, often referred to as PID,
-    constantly calculates an error value e(t) as the difference between a desired value, or setpoint, SP, and the real-time measured value, or process variable, PV. The algorithm then performs a correction for this error by calculation of proportional (real-time), integral (past response), and derivative (future response) terms for controller output.
+PID control is a common industrial control algorithm used to enhance system stability and error response time. This algorithm, often referred to as PID, regularly calculates an error value _e(t)_ as the difference between a desired control value (setpoint), _SP_, and the real-time execution value obtained from the control feedback loop (process variable), _PV_. The algorithm then performs a correction for identified error by incrementing the command output with calculated values of proportional (real-time), integral (past response), and derivative (future response) terms in the equation below:
+
+<img src="https://latex.codecogs.com/gif.latex?u(t)&space;=&space;K_pe(t)&space;&plus;&space;K_i\int_{0}^{t}e(\tau)d\tau&plus;K_d\frac{d}{dt}e(t)" title="u(t) = K_pe(t) + K_i\int_{0}^{t}e(\tau)d\tau+K_d\frac{d}{dt}e(t)" />
+
+By performing a Z-transform (conversion of the discrete time signal into an equivalent expression in the frequency domain) of the above equation, we derive the following algorithm for implementation:
+
+<img src="https://latex.codecogs.com/gif.latex?u[k]=u[k-1]&plus;(K_p&plus;K_i&plus;K_d)e[k]&plus;(-K_p-2K_d)e[k-1]&plus;(K_d)e[k-2]" title="u[k]=u[k-1]+(K_p+K_i+K_d)e[k]+(-K_p-2K_d)e[k-1]+(K_d)e[k-2]" />
+
+The identification of the above approach allowed for the implementation of PID control in Verilog for synthesis on FPGA hardware.
 
 ### **Background Information :**
-Starting in 1911, the first controller similar to a PID was created by Elmer Sperry. It was not until working with the US military on automatic steering systems in 1922 that a man named Nicolas Minorsky created the first theoretical analysis of a PID controller. In the year 1933, the Taylor Instrument Company (TIC), known for their efforts in machine accuracy during WWII, implemented the proportional controller into their pneumatic controller. To improve the overshooting and steady state errors, TIC created a new controller that implements both integration and derivative calculations in 1940. 
+Development of the control approach known today as the PID algorithm began in 1911 with the creation of a feedback-reactive pneumatic controller by Elmer Sperry. In 1922, Nicolas Minorsky introduced the theoretical analysis of the PID concept through collaboration with the US military, and the first implementation of the proportional control (P) algorithm was achieved in 1933 by the Taylor Instrument Company. Taylor added the integral and derivative terms to improve accuracy in 1940, leading to the foundation of PID as a reliable control algorithm that is still used today.
 
- As for the creation of this final project, we thought it would be a good idea to test the limits of a PID controller. Because of the FPGA’s real time value, the PID controller can update much quicker than a programmable logic controller (PLC) is able to. Therefore, Dr. Peter Jamieson suggested that formulating a PID controller module that runs much more efficiently than a PLC would be a good approach to our final project. In a real world setting, it is important to keep in mind that although a working machine is critical to obtain, one that contains systematic timing is very important as well.
+Modern implementations of user-programmable PID controllers are often found in industrial environments where programmable logic controllers (PLCs) are used for process control. PLCs possess the inherent limitation of serial updating, wherein the set analysis of input, control, and output conditions is performed only once per clock cycle.
 
-### **Where To Find More Information On PID :**
-_For more information on proportional-integral-derivative control, you can reference Karl Johan Åström’s document, provided with the link below:_
+The use of FPGA hardware, however, allows for parallel execution of numerous logic paths with each clock cycle. Therefore, the parallel execution of non-interdependent logic paths allows for more rapid response to changing control loop conditions, as well as user interface updating.
 
+
+### **Additional Reading**
+
+_Additional information on PID control can be obtained from Karl Johan Åström’s_ Control System Design _linked here:_
  http://www.cds.caltech.edu/~murray/courses/cds101/fa02/caltech/astrom-ch6.pdf
 
-### **What We Did (***Description of the Project Outline***) :**
- In this repository, we added the proportional-integral-derivative control features with Verilog on the DE2-115 FPGA that can be extended to a servo motor drive output.
+### **Project Implementation Outline**
 
- To start, we designed a PID controller module t3o execute on the FPGA (Altera Cyclone IV) DE2-115 demonstrator. Once the PID controller module was created, we designed another Verilog module that allows the user to adjust the K values for error calculations. These error calculations allow the user to switch on the DE2-115 for more accurate machine response times. The active K value (Kp, Ki, or Kd) is selectable using the toggle switches on the DE2-115 board, and the PID controller continuously scans the set K values with the implementation of a set of automatic clock registers. The current value is displayed on the DE2-115 LCD, and can be adjusted in up/down increments with two pushbuttons.
+Contained within this repository is the working directory of the Intel Quartus Prime project. The top-level module of the project is `pid.v`, which implements the PID algorithm as well as control and instantiation of:
+- User interface functions
+- Command system functions
+- Feedback system functions
 
- For the purposes of this project, the PID controller implementation focuses on the servo motor operations and hall-effect encoder feedback. The GPIO header of the DE2-115 is used to interface with this hardware, and a basic test program is designed to control the servo for testing. The K values for the PID controller can be adjusted until the process is deemed to be at-or near-RPM unity.
+This module is intended to be used in conjunction with a Kollmorgen AKD servo controller with associated motor and encoder. 
 
-### **Improvements/Result :**
-_By setting our C value to 1000 RPM, we are able to implement the PID to control a consistent speed within 10 RPM of our desired output._
+General outline of project features:
+- User interface on DE2-115 board including LCD overview of `Kp`, `Ki`, and `Kd` scalar terms, as well as `control and feedback velocities` in RPM.
+- User-editable parameters for `Kp`, `Ki`, `Kd`, and `control velocity` selectable with `SW[3:0]`, whereby:
+    - Activation of `SW[3]` selects `control velocity (C)` as the active parameter
+    - Activation of `SW[2]` selects `Kp (P)` as the active parameter
+    - Activation of `SW[1]` selects `Ki (I)` as the active parameter
+    - Activation of `SW[0]` selects `Kd (d)` as the active parameter
+- Display of active parameter on `HEX[5:0]` and its value, wherein:
+    - `HEX[5]` displays the selected parameter `(C, P, I, d)`
+    - `HEX[4]` displays an equality representation, `=`
+    - `HEX[3]` displays the thousands place of the active parameter (`C` parameter only)
+    - `HEX[2]` displays the hundreds place of the active parameter
+    - `HEX[1]` displays the tens place of the active parameter
+    - `HEX[0]` displays the ones place of the active parameter
+    - _Note: Values of `K*` are represented as three-digit values bounded within [0, 999], but their implementation is scaled by division such that their actual values are bounded within [0, 0.999] with linear correlation. Value of `C` is represented at true scale as RPM._
+- Selected parameter can be changed using `KEY[3]` (increment) and `KEY[2]` (decrement).
+- DE2-115 demonstrator receives encoder feedback on `EX_IO[0]` at a rate of 60 pulses per revolution.
+- DE2-115 demonstrator returns PWM-encoded control signal on `EX_IO[1]` such that the linear relation between the command RPM and a valid control RPM of [0, 10000] RPM is represented as a 0 - 100% duty cycle signal on a 100 Hz carrier.
 
-_* Here are some major improvements made throughout the process of this project:_
+Hardware interface information:
+- The Kollmorgen AKD is configured such that enable/disable state control is implemented without interaction with the FPGA - this includes safe torque off (STO), start/stop command, and all other discrete features.
+- The Kollmorgen AKD is configured such that the received encoder status is replicated on connector X9 for transmission to the DE2-115: Encoder Emulation Mode 1 - A quad B with once per rev index pulse; Emulation resolution 60 lines/rev; Index offset 0
+- Connector X9 Pin 3 serves as the output ground reference, while Connector X9 Pin 7 serves as the rotational index output.
+- DRV.CMDSOURCE is set to 3 (Analog) and DRV.OPMODE is set to 1 (Velocity).
+- Analog input (X8) is set to mode 2 (MT Target Velocity) with a LPF at 5KHz, 0 V offset and deadband, and a 1000 rpm/V scale to achieve a 0 - 10,000 RPM command over a 0 - 10V input range.
+- Conversion from FPGA command output (PWM) to drive command input (0 - 10V analog) is achieved with the PWM command connected to an RC filter (10k ohm/22uF), which is in turn connected to the non-inverting input of an LM358 operational amplifier configured for non-inverting operation with a gain of 3 and rail voltage of 12VDC.
+- Conversion from drive feedback output (5V TTL) to FPGA feedback input (3.3V TTL) is achieved with the use of a TI SN74AHCT125 logic level buffer.
+ 
+Description of project modules:
+- `pid.v`: Top level module as described above
+- `lcd.v`: FSM to provide constant update of LCD values
+- `motor_rpm_count.v`: Module to count number of motor rotation pulses in one second and return numeric representation
+- `output_pwm_gen.v`: Module instantiated with command value obtained from PID algorithm calculation to generate PWM output as described above
+- `seg7_act_val.v`: Module to display a varied-width register value on the 7-segment displays based on a 4-bit select signal
+- `seven_segment.v`: Module to drive an individual 7-segment display with a 4-bit decimal input dependent on a 1-bit enable signal
+- `decimal_val.v`: Module to convert a 12-bit input number (K parameter) into three, 8-bit ASCII values for passage to LCD FSM
+- `velocity_decimal_val.v`: Module to convert a 16-bit input number (C parameter) into four, 8-bit ASCII values for passage to LCD FSM
 
-    - Module’s ability to have automatic updating values.
+### **Implementation Results**
+_The following describes the validation of the PID controller in a simulated environment, using a signal generator to provide an encoder pulse input and an oscilloscope to demonstrate control output duty cycle._
 
-    -   Ability to speed up the LCD’s display time.
+For testing of the PID controller, a simulation setup was created to achieve a reliable 1,000 RPM output control pulse based on an encoder feedback input that represented the feedback velocity as constantly changing and lower than actual velocity.
 
-    - Numerical speed of calculated values improved.
-    (including the removal of any numerical error values)
-
-    - Module’s ability to output a signal pulse to the servo motor. 
+The photos and video below detail the testing setup as well as user control to achieve a reliable command velocity of 1000 RPM.
 
 
-### **Photo/Video Of Project :**
-_photos and video will be added later after demo_
+
+// Add photos/video 12/10/21
+
+
 ### **Conclusion :**
 In conclusion, the PID project was a success. Although we were unable to test our PID module on the servo motor (unable to get access to a necessary logic converter PWM to voltage component before project deadline), we were able to test our PID controller through simulation on Dr. P. Jamieson’s request. As stated in the **Background Information** section of this README file, the PID is able to update much quicker on the FPGA, proving that there is significant improvement in acquiring a desired RPM.
 
