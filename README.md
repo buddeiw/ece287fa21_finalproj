@@ -5,7 +5,7 @@
 
 Excecuted on Intel/Altera Cyclone IV FPGA (_Terasic DE2-115 Demonstrator_)
 
-### **Project Synopsis :**
+### **Project Synopsis**
 PID control is a common industrial control algorithm used to enhance system stability and error response time. This algorithm, often referred to as PID, regularly calculates an error value _e(t)_ as the difference between a desired control value (setpoint), _SP_, and the real-time execution value obtained from the control feedback loop (process variable), _PV_. The algorithm then performs a correction for identified error by incrementing the command output with calculated values of proportional (real-time), integral (past response), and derivative (future response) terms in the equation below:
 
 <img src="https://latex.codecogs.com/gif.latex?u(t)&space;=&space;K_pe(t)&space;&plus;&space;K_i\int_{0}^{t}e(\tau)d\tau&plus;K_d\frac{d}{dt}e(t)" title="u(t) = K_pe(t) + K_i\int_{0}^{t}e(\tau)d\tau+K_d\frac{d}{dt}e(t)" />
@@ -16,7 +16,7 @@ By performing a Z-transform (conversion of the discrete time signal into an equi
 
 The identification of the above approach allowed for the implementation of PID control in Verilog for synthesis on FPGA hardware.
 
-### **Background Information :**
+### **Background Information**
 Development of the control approach known today as the PID algorithm began in 1911 with the creation of a feedback-reactive pneumatic controller by Elmer Sperry. In 1922, Nicolas Minorsky introduced the theoretical analysis of the PID concept through collaboration with the US military, and the first implementation of the proportional control (P) algorithm was achieved in 1933 by the Taylor Instrument Company. Taylor added the integral and derivative terms to improve accuracy in 1940, leading to the foundation of PID as a reliable control algorithm that is still used today.
 
 Modern implementations of user-programmable PID controllers are often found in industrial environments where programmable logic controllers (PLCs) are used for process control. PLCs possess the inherent limitation of serial updating, wherein the set analysis of input, control, and output conditions is performed only once per clock cycle.
@@ -88,13 +88,13 @@ The photos and video below detail the testing setup as well as user control to a
 // Add photos/video 12/10/21
 
 
-### **Conclusion :**
+### **Conclusion**
 In conclusion, the PID project was a success. Although we were unable to test our PID module on the servo motor (unable to get access to a necessary logic converter PWM to voltage component before project deadline), we were able to test our PID controller through simulation on Dr. P. Jamieson’s request. As stated in the **Background Information** section of this README file, the PID is able to update much quicker on the FPGA, proving that there is significant improvement in acquiring a desired RPM.
 
 
 **_The completion time of our project was approximately 100 working hours, with a turn in date of December 11th, 2021._**
 
-### **Citations :**
+### **Citations**
 Åström, K.L. Control System Design: PID Control (2002). University of California Santa Barbara, Department of Mechanical and Environmental Engineering. Retrieved from www.cds.caltech.edu/~murray/courses/cds101/fa02/caltech/astrom-ch6.pdf
 
 Brunner, D. et al. Transforming Ladder Logic to Verilog for FPGA Realization of
