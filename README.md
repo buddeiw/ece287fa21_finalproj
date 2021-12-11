@@ -17,7 +17,7 @@ By performing a Z-transform (conversion of the discrete time signal into an equi
 The identification of the above approach allowed for the implementation of PID control in Verilog for synthesis on FPGA hardware.
 
 ### **Background Information**
-Development of the control approach known today as the PID algorithm began in 1911 with the creation of a feedback-reactive pneumatic controller by Elmer Sperry. In 1922, Nicolas Minorsky introduced the theoretical analysis of the PID concept through collaboration with the US military, and the first implementation of the proportional control (P) algorithm was achieved in 1933 by the Taylor Instrument Company. Taylor added the integral and derivative terms to improve accuracy in 1940, leading to the foundation of PID as a reliable control algorithm that is still used today.
+Development of the control approach, known today as the PID algorithm, began in 1911 with the creation of a feedback-reactive pneumatic controller by Elmer Sperry. In 1922, Nicolas Minorsky introduced the theoretical analysis of the PID concept through collaboration with the US military, and the first implementation of the proportional control (P) algorithm was achieved in 1933 by the Taylor Instrument Company (TIC). TIC added the integral and derivative terms to improve accuracy in 1940, leading to the foundation of PID as a reliable control algorithm that is still used today.
 
 Modern implementations of user-programmable PID controllers are often found in industrial environments where programmable logic controllers (PLCs) are used for process control. PLCs possess the inherent limitation of serial updating, wherein the set analysis of input, control, and output conditions is performed only once per clock cycle.
 
