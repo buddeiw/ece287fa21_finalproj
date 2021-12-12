@@ -88,8 +88,7 @@ The photos and video below detail the testing setup as well as user control to a
 https://user-images.githubusercontent.com/93879119/145693824-d18976c0-1e2d-45f2-bdc5-31822ed9e52f.mp4
 
 
-
-// Add photos/video 12/10/21
+Additional images can be obtained at: budde.me/proj/imgs/
 
 
 ### **Conclusion**
