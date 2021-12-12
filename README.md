@@ -92,10 +92,11 @@ Additional images can be obtained at: [budde.me/proj/imgs](https://budde.me/proj
 
 
 ### **Conclusion**
-In conclusion, the PID project was a success. Although we were unable to test our PID module on the servo motor (unable to get access to a necessary logic converter PWM to voltage component before project deadline), we were able to test our PID controller through simulation on Dr. P. Jamieson’s request. As stated in the **Background Information** section of this README file, the PID is able to update much quicker on the FPGA, proving that there is significant improvement in acquiring a desired RPM.
+In conclusion, the implementation of PID control on the Intel/Altera FPGA architecture was a success, allowing for the successful generation of a PWM control signal in reaction to user-input parameters as well as system variations. The parallel execution of logical operations in the Verilog modules allows for significant improvement against other architectures that are limited by the number of executions that can take in a given clock cycle. Theoretically, an increase in the FPGA clock speed will result in an increased response time that scales roughly linearly. 
 
+Testing execution took place in a simulated environment (function generator to simulate input and oscilloscope to observe output) due to unavailability of interposing hardware (logic level shifter and duty-cycle to analog conversion module). The designers plan to obtain this hardware in the future and execute a physical demonstration using a Kollmorgen AKD drive and servo motor for validation.
 
-**_The completion time of our project was approximately 100 working hours, with a turn in date of December 11th, 2021._**
+**_Completion of this project took approximately 100 working hours for final submission on 12/11/2021._**
 
 ### **Citations**
 Åström, K.L. Control System Design: PID Control (2002). University of California Santa Barbara, Department of Mechanical and Environmental Engineering. Retrieved from www.cds.caltech.edu/~murray/courses/cds101/fa02/caltech/astrom-ch6.pdf
